@@ -42,23 +42,23 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.markers = [
-            {
-                //features[0] seleziona il primo geoJson
-                //coordinates[0] ottiene la lista di poligoni.
-                //coordinates[0][0] ottiene il primo (e unico) poligono della lista
-                //coordinates[0][0][0] ottiene la longitudine
-                //coordinates[0][0][1] ottiene la latitudine
-                lng: this.geoJsonObject.features[0].geometry.coordinates[0][0][0],
-                lat: this.geoJsonObject.features[0].geometry.coordinates[0][0][1],
-                label: String(this.geoJsonObject.features[0].properties.id),
-            },
-            {
-                lng: this.geoJsonObject.features[1].geometry.coordinates[0][0][0],
-                lat: this.geoJsonObject.features[1].geometry.coordinates[0][0][1],
-                label: String(this.geoJsonObject.features[1].properties.id),
-            }
-        ]
+
+        //coordinates[0] ottiene la lista di poligoni.
+        //coordinates[0][0] ottiene il primo (e unico) poligono della lista
+        //coordinates[0][0][0] ottiene la longitudine
+        //coordinates[0][0][1] ottiene la latitudine
+
+        this.markers = [];
+
+        for (let feature of this.geoJsonObject.features) {
+            let lng = feature.geometry.coordinates[0][0][0];
+            let lat = feature.geometry.coordinates[0][0][1];
+            let label = String(feature.properties.id);
+            this.markers.push( new Marker(lat, lng, label) );
+        }
+
+        console.log(this.markers)
+
     }
 
 }
